@@ -1,4 +1,7 @@
+import axios from "../api/axios"
+
 interface UserProps {
+  id?: number | string
   name?: string
   age?: number
 }
@@ -36,5 +39,13 @@ export class User {
     if (!isExistHandlers) return
 
     handlers.forEach((cb) => cb())
+  }
+
+  async fetch(): Promise<void> {
+    try {
+      const response = await axios.get(`/users/${this.get("id")}`)
+    } catch (err) {
+      console.error(err)
+    }
   }
 }

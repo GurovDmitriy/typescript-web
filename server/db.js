@@ -1,13 +1,20 @@
 /* eslint-disable no-console */
 // const casual = require("casual")
+// const USERS_COUNT = 10
 
 // global state
 
 const stateDataBase = {
   // static
-  users: [],
+  users: [
+    {
+      id: 1,
+      name: "some",
+      age: 30,
+    },
+  ],
   // getters
-  userList: [],
+  // userList: [],
 }
 
 // core
