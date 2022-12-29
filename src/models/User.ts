@@ -1,49 +1,49 @@
 import axios from "../api/axios"
+import {Eventing} from "./Eventing";
 
-interface UserProps {
-  id?: number | string
+type userId = string | number
+
+export interface UserProps {
+  id?: userId
   name?: string
   age?: number
 }
 
-type Callback = () => void
 
 export class User {
-  events: {
-    [key: string]: Callback[]
-  } = {}
+  constructor(private data: UserProps) {}
 
-  constructor(private _data: UserProps) {}
+  public events: Eventing = new Eventing()
 
   get(propName: string): string | number {
-    return this._data[propName]
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.data[propName]
   }
 
-  set(update: UserProps): void {
-    this._data = Object.assign({}, this._data, update)
-  }
-
-  on(eventName: string, callback: Callback) {
-    if (!this.events[eventName]) {
-      this.events[eventName] = []
-    }
-
-    this.events[eventName].push(callback)
-  }
-
-  trigger(eventName: string): void {
-    const handlers = this.events[eventName]
-    const isExistHandlers =
-      handlers && Array.isArray(handlers) && handlers.length
-
-    if (!isExistHandlers) return
-
-    handlers.forEach((cb) => cb())
+  set(data: UserProps): void {
+    this.data = Object.assign({}, this.data, data)
   }
 
   async fetch(): Promise<void> {
     try {
-      const response = await axios.get(`/users/${this.get("id")}`)
+      const id = this.get("id")
+
+      await axios.get(`/users/${id}`)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async save(): Promise<void> {
+    try {
+      const id = this.get("id")
+
+      if(id) {
+        await axios.put(`/users/${id}`, this.data)
+      } else {
+        await axios.post(`/users/${id}`, this.data)
+      }
     } catch (err) {
       console.error(err)
     }
