@@ -9,7 +9,7 @@ const stateDataBase = {
   users: [
     {
       id: 1,
-      name: "some",
+      name: "Dima",
       age: 30,
     },
   ],
