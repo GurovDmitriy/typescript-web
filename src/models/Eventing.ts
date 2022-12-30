@@ -1,6 +1,6 @@
-type Callback = () => void
+export type Callback = () => void
 
-type Events = {
+export type Events = {
   [key: string]: Callback[]
 }
 
