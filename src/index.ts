@@ -1,10 +1,10 @@
 import { User } from "./models/User"
 
-const user = new User({ name: "new", age: 0 })
+export const rootUrl = "/users"
 
-async function run() {
-  await user.save()
-  console.log(user)
-}
+const user = new User({
+  name: "Dima",
+  age: 31,
+})
 
-run()
+console.log(user)

@@ -1,68 +1,36 @@
-import axios from "../api/axios"
+import {Callback, Eventing} from "./Eventing";
+import {Sync} from "./Sync";
+import {Attributes} from "./Attributes";
 
-interface UserProps {
-  id?: number | string
+export type userId = string | number
+
+export interface UserProps {
+  id?: userId
   name?: string
   age?: number
 }
 
-type Callback = () => void
+export const rootUrl = "/users"
+
 
 export class User {
-  events: {
-    [eventName: string]: Callback[]
-  } = {}
-
-  constructor(private _data: UserProps) {}
-
-  get(propName: string): string | number {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return this._data[propName]
+  constructor(attributes: UserProps) {
+    this.attributes = new Attributes<UserProps>(attributes)
   }
 
-  set(update: UserProps): void {
-    this._data = Object.assign({}, this._data, update)
+  public events: Eventing = new Eventing()
+  public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl)
+  public attributes: Attributes<UserProps>
+
+  get on() {
+    return this.events.on.bind(this)
   }
 
-  on(eventName: string, callback: Callback) {
-    if (!this.events[eventName]) {
-      this.events[eventName] = []
-    }
-
-    this.events[eventName].push(callback)
+  get trigger() {
+    return this.events.trigger.bind(this)
   }
 
-  trigger(eventName: string): void {
-    const handlers = this.events[eventName]
-    const isExistHandlers =
-      handlers && Array.isArray(handlers) && handlers.length
-
-    if (!isExistHandlers) return
-
-    handlers.forEach((cb) => cb())
-  }
-
-  async fetch(): Promise<void> {
-    try {
-      const response = await axios.get(`/users/${this.get("id")}`)
-      this.set(response.data)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  async save(): Promise<void> {
-    const id = this.get("id")
-
-    try {
-      if (id) {
-        await axios.put(`/users/${id}`, this._data)
-      } else {
-        await axios.post("/users", this._data)
-      }
-    } catch (err) {
-      console.error(err)
-    }
+  get get() {
+    return this.attributes.get.bind(this)
   }
 }
