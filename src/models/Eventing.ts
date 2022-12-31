@@ -1,5 +1,11 @@
 export type Callback = () => void
 
+export enum EventName {
+  change = "change",
+  save = "save",
+  error = "error",
+}
+
 export type Events = {
   [key: string]: Callback[]
 }

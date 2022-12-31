@@ -1,4 +1,4 @@
-import axios from "../api/axios"
+import { axios } from "../api/Api"
 import { AxiosPromise } from "axios"
 
 export interface hasId {

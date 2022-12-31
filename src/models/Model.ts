@@ -1,5 +1,5 @@
 import { AxiosPromise } from "axios"
-import { Callback } from "./Eventing"
+import { Callback, EventName } from "./Eventing"
 
 export type idType = number | string | undefined
 
@@ -30,21 +30,13 @@ export class Model<T extends hasIdI> {
     private sync: SyncI<T>
   ) {}
 
-  get on() {
-    return this.events.on
-  }
-
-  get trigger() {
-    return this.events.trigger
-  }
-
-  get get() {
-    return this.attributes.get
-  }
+  on = this.events.on
+  trigger = this.events.trigger
+  get = this.attributes.get
 
   set(data: T): void {
     this.attributes.set(data)
-    this.events.trigger("change")
+    this.events.trigger(EventName.change)
   }
 
   async fetch(): Promise<void> {
@@ -64,10 +56,10 @@ export class Model<T extends hasIdI> {
   async save(): Promise<void> {
     try {
       await this.sync.save(this.attributes.getAll())
-      this.events.trigger("save")
+      this.events.trigger(EventName.save)
     } catch (err) {
       console.error(err)
-      this.trigger("error")
+      this.trigger(EventName.error)
     }
   }
 }
