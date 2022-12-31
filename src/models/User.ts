@@ -2,6 +2,7 @@ import { idType, Model } from "./Model"
 import { Attribute } from "./Attribute"
 import { Eventing } from "./Eventing"
 import { SyncApi } from "./SyncApi"
+import { Collection } from "./Collection"
 
 export interface UserProps {
   id?: idType
@@ -17,6 +18,12 @@ export class User extends Model<UserProps> {
       new Attribute<UserProps>(attributes),
       new Eventing(),
       new SyncApi<UserProps>(rootUrl)
+    )
+  }
+
+  static buildCollection(): Collection<User, UserProps> {
+    return new Collection<User, UserProps>(rootUrl, (json) =>
+      User.buildUser(json)
     )
   }
 }

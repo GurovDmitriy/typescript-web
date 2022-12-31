@@ -1,10 +1,7 @@
-import { Collection } from "./models/Collection"
 import { EventName } from "./models/Eventing"
-import { User, UserProps } from "./models/User"
+import { User } from "./models/User"
 
-const collection = new Collection<User, UserProps>("/users", (json) =>
-  User.buildUser(json)
-)
+const collection = User.buildCollection()
 
 collection.on(EventName.change, () => {
   console.log("changed")
