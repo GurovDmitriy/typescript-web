@@ -7,7 +7,7 @@ export type Events = {
 export class Eventing {
   events: Events = {}
 
-  on(eventName: string, callback: Callback) {
+  on = (eventName: string, callback: Callback): void => {
     const isExistEvent = this.events[eventName]
 
     if (!isExistEvent) {
@@ -17,7 +17,7 @@ export class Eventing {
     this.events[eventName].push(callback)
   }
 
-  trigger(eventName: string): void {
+  trigger = (eventName: string): void => {
     const handlers = this.events[eventName]
     const isExistHandlers =
       handlers && Array.isArray(handlers) && handlers.length

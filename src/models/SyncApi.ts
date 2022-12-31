@@ -1,11 +1,11 @@
 import axios from "../api/axios"
-import {AxiosPromise} from "axios"
+import { AxiosPromise } from "axios"
 
 export interface hasId {
   id?: string | number
 }
 
-export class Sync<T extends hasId> {
+export class SyncApi<T extends hasId> {
   constructor(public rootUrl: string) {}
 
   fetch(id: number): AxiosPromise | undefined {
@@ -20,7 +20,7 @@ export class Sync<T extends hasId> {
     try {
       const id = data?.id
 
-      if(id) {
+      if (id) {
         return axios.put(`${this.rootUrl}/${id}`, data)
       } else {
         return axios.post(`${this.rootUrl}`, data)

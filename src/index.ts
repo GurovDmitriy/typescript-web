@@ -1,10 +1,12 @@
 import { User } from "./models/User"
 
-export const rootUrl = "/users"
-
-const user = new User({
-  name: "Dima",
-  age: 31,
+const user = User.buildUser({
+  id: 1,
 })
 
-console.log(user)
+user.on("change", () => {
+  console.log("user changed")
+  console.log(user)
+})
+
+user.fetch()
