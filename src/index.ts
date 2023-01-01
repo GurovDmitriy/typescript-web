@@ -1,12 +1,9 @@
-import { EventName } from "./models/Eventing"
+import { UserForm } from "./views/UserForm"
 import { User } from "./models/User"
 
-const collection = User.buildCollection()
+const rootEle = document.getElementById("root")
 
-collection.on(EventName.change, () => {
-  console.log("changed")
-})
+const user = User.buildUser({ name: "marq", age: 18 })
+const userForm = new UserForm(rootEle, user)
 
-collection.fetch().then(() => {
-  console.log(collection)
-})
+userForm.render()
