@@ -3,7 +3,7 @@ import { Callback, EventName } from "./Eventing"
 
 export type idType = number | string | undefined
 
-export interface hasIdI {
+export interface HasIdI {
   id?: idType
 }
 
@@ -23,7 +23,7 @@ interface EventsI {
   trigger(eventName: string): void
 }
 
-export class Model<T extends hasIdI> {
+export class Model<T extends HasIdI> {
   constructor(
     private attributes: ModelAttributesI<T>,
     private events: EventsI,
