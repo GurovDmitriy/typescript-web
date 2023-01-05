@@ -5,9 +5,17 @@ export abstract class View<T extends Model<K>, K extends HasIdI> {
     this.bindModel()
   }
 
-  abstract eventsMap(): {[key: string]: () => void}
+  slots: {[key: string]: Element} = {}
 
   abstract template(): string
+
+  slotsMap(): {[key: string]: string} {
+    return {}
+  }
+
+  eventsMap(): {[key: string]: () => void} {
+    return {}
+  }
 
   bindModel() {
     this.model.on("change", () => {
@@ -27,6 +35,23 @@ export abstract class View<T extends Model<K>, K extends HasIdI> {
     }
   }
 
+  renderSlots(fragment: DocumentFragment): void {
+    const slotsMap = this.slotsMap()
+
+    for(const key in slotsMap) {
+      const selector = slotsMap[key]
+      const elem = fragment.querySelector(selector)
+
+      if(elem) {
+        this.slots[key] = elem
+      }
+    }
+  }
+
+  onRender(): void {
+    //
+  }
+
   render(): void {
     if(this.parent) {
       this.parent.innerHTML = ""
@@ -36,6 +61,9 @@ export abstract class View<T extends Model<K>, K extends HasIdI> {
     templateElement.innerHTML = this.template()
 
     this.bindEvents(templateElement.content)
+    this.renderSlots(templateElement.content)
+
+    this.onRender()
 
     if (this.parent) {
       this.parent.append(templateElement.content)
