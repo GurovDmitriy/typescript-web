@@ -10,7 +10,12 @@ export type Events = {
   [key: string]: Callback[]
 }
 
-export class Eventing {
+export interface EventingI {
+  on(eventName: string, callback: Callback): void
+  trigger(eventName: string): void
+}
+
+export class Eventing implements EventingI {
   events: Events = {}
 
   on = (eventName: string, callback: Callback): void => {

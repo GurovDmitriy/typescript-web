@@ -1,11 +1,18 @@
 import { axios } from "../api/Api"
 import { AxiosPromise } from "axios"
 
-export interface hasId {
-  id?: string | number
+export type IdType = number | string | undefined
+
+export interface HasIdI {
+  id?: IdType
 }
 
-export class SyncApi<T extends hasId> {
+export interface SyncApiI<T extends HasIdI> {
+  fetch(id: IdType): AxiosPromise | undefined
+  save(data: T): AxiosPromise | undefined
+}
+
+export class SyncApi<T extends HasIdI> implements SyncApiI<T> {
   constructor(public rootUrl: string) {}
 
   fetch(id: number): AxiosPromise | undefined {

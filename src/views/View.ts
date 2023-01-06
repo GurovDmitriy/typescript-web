@@ -1,4 +1,5 @@
-import {HasIdI, Model} from "../models/Model";
+import {Model} from "../models/Model";
+import {HasIdI} from "../models/SyncApi";
 
 export abstract class View<T extends Model<K>, K extends HasIdI> {
   constructor(public parent: Element | null, public model: T) {

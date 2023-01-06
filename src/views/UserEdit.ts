@@ -3,8 +3,8 @@ import {User, UserProps} from "../models/User";
 import {UserShow} from "./UserShow";
 import {UserForm} from "./UserForm";
 
-export class UserEdit extends View<User, UserProps>{
-  slotsMap(): {[key: string]: string} {
+export class UserEdit extends View<User, UserProps> {
+  slotsMap(): { [key: string]: string } {
     return {
       userShow: ".user-show",
       userForm: ".user-form",

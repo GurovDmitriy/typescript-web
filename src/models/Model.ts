@@ -1,33 +1,12 @@
-import { AxiosPromise } from "axios"
-import { Callback, EventName } from "./Eventing"
-
-export type idType = number | string | undefined
-
-export interface HasIdI {
-  id?: idType
-}
-
-export interface ModelAttributesI<T> {
-  set(value: T): void
-  get<K extends keyof T>(key: K): T[K]
-  getAll(): T
-}
-
-export interface SyncI<T> {
-  fetch(id: idType): AxiosPromise | undefined
-  save(data: T): AxiosPromise | undefined
-}
-
-interface EventsI {
-  on(eventName: string, callback: Callback): void
-  trigger(eventName: string): void
-}
+import {EventingI, EventName} from "./Eventing"
+import {HasIdI, SyncApiI} from "./SyncApi";
+import {AttributesI} from "./Attribute";
 
 export class Model<T extends HasIdI> {
   constructor(
-    private attributes: ModelAttributesI<T>,
-    private events: EventsI,
-    private sync: SyncI<T>
+    private attributes: AttributesI<T>,
+    private events: EventingI,
+    private sync: SyncApiI<T>
   ) {}
 
   on = this.events.on

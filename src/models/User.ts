@@ -1,11 +1,11 @@
-import { idType, Model } from "./Model"
+import { Model } from "./Model"
 import { Attribute } from "./Attribute"
 import { Eventing } from "./Eventing"
-import { SyncApi } from "./SyncApi"
+import { IdType, SyncApi } from "./SyncApi"
 import { Collection } from "./Collection"
 
 export interface UserProps {
-  id?: idType
+  id?: IdType
   name?: string
   age?: number
 }
