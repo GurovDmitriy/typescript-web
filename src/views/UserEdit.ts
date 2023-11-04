@@ -1,7 +1,7 @@
-import {View} from "./View";
-import {User, IUserProps} from "../models/User";
-import {UserShow} from "./UserShow";
-import {UserForm} from "./UserForm";
+import { View } from "./View"
+import { User, IUserProps } from "../models/User"
+import { UserShow } from "./UserShow"
+import { UserForm } from "./UserForm"
 
 export class UserEdit extends View<User, IUserProps> {
   slotsMap(): { [key: string]: string } {
@@ -22,6 +22,6 @@ export class UserEdit extends View<User, IUserProps> {
         <div class="user-show"></div>
         <div class="user-form"></div>
       </div>
-    `;
+    `
   }
 }

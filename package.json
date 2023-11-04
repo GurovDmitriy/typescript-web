@@ -12,10 +12,9 @@
     "server": "json-server server/db.json -w -m ./node_modules/json-server-auth -r server/routes.json",
     "build": "parcel build",
     "prepare": "husky install",
-    "lint": "npm run lint:eslint && npm run lint:stylelint && npm run lint:prettier",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --fix --ext \".jsx,.js,.ts,.tsx\" --ignore-path .eslintignore .",
-    "lint:prettier": "prettier --write \"**/*.{jsx,js,ts,tsx,css,less,scss,html,md}\" --ignore-path .prettierignore",
-    "lint:stylelint": "stylelint --fix \"**/*.{css,less,scss}\" --ignore-path .stylelintignore"
+    "lint:prettier": "prettier --write \"**/*.{jsx,js,ts,tsx,css,less,scss,html,md}\" --ignore-path .prettierignore"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
@@ -40,7 +39,16 @@
     "stylelint-order": "^6.0.3",
     "typescript": "^5.2.2"
   },
+  "lint-staged": {
+    "src/**/*.{jsx,js,ts,tsx}": "eslint --fix",
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
   "dependencies": {
     "axios": "^1.6.0"
+  },
+  "volta": {
+    "node": "20.9.0"
   }
 }

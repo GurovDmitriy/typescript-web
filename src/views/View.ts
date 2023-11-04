@@ -1,20 +1,23 @@
-import {Model} from "../models/Model";
-import {IHasId} from "../models/SyncApi";
+import { Model } from "../models/Model"
+import { IHasId } from "../models/SyncApi"
 
 export abstract class View<T extends Model<K>, K extends IHasId> {
-  constructor(public parent: Element | null, public model: T) {
+  constructor(
+    public parent: Element | null,
+    public model: T,
+  ) {
     this.bindModel()
   }
 
-  slots: {[key: string]: Element} = {}
+  slots: { [key: string]: Element } = {}
 
   abstract template(): string
 
-  slotsMap(): {[key: string]: string} {
+  slotsMap(): { [key: string]: string } {
     return {}
   }
 
-  eventsMap(): {[key: string]: () => void} {
+  eventsMap(): { [key: string]: () => void } {
     return {}
   }
 
@@ -39,11 +42,11 @@ export abstract class View<T extends Model<K>, K extends IHasId> {
   renderSlots(fragment: DocumentFragment): void {
     const slotsMap = this.slotsMap()
 
-    for(const key in slotsMap) {
+    for (const key in slotsMap) {
       const selector = slotsMap[key]
       const elem = fragment.querySelector(selector)
 
-      if(elem) {
+      if (elem) {
         this.slots[key] = elem
       }
     }
@@ -54,7 +57,7 @@ export abstract class View<T extends Model<K>, K extends IHasId> {
   }
 
   render(): void {
-    if(this.parent) {
+    if (this.parent) {
       this.parent.innerHTML = ""
     }
 

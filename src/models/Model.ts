@@ -1,12 +1,12 @@
-import {IEventing, EventName, Callback} from "./Eventing"
-import {IHasId, ISyncApi} from "./SyncApi";
-import {IAttributes} from "./Attribute";
+import { IEventing, EventName, Callback } from "./Eventing"
+import { IHasId, ISyncApi } from "./SyncApi"
+import { IAttributes } from "./Attribute"
 
 export class Model<T extends IHasId> {
   constructor(
     private attributes: IAttributes<T>,
     private events: IEventing,
-    private sync: ISyncApi<T>
+    private sync: ISyncApi<T>,
   ) {}
 
   on(eventName: string, callback: Callback): void {

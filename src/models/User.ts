@@ -8,8 +8,8 @@ export interface IUserProps {
   id?: IdType
   name?: string
   age?: number
-  email?: string,
-  password?: string,
+  email?: string
+  password?: string
 }
 
 export const rootUrl = "/users"
@@ -19,19 +19,19 @@ export class User extends Model<IUserProps> {
     return new User(
       new Attribute<IUserProps>(attributes),
       new Eventing(),
-      new SyncApi<IUserProps>(rootUrl)
+      new SyncApi<IUserProps>(rootUrl),
     )
   }
 
   static buildCollection(): Collection<User, IUserProps> {
     return new Collection<User, IUserProps>(rootUrl, (json) =>
-      User.buildUser(json)
+      User.buildUser(json),
     )
   }
 
   public setRandomAge(): void {
     const age = Math.round(Math.random() * 100)
 
-    this.set({age})
+    this.set({ age })
   }
 }

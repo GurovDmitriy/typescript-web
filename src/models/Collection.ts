@@ -3,7 +3,10 @@ import { axios } from "../api/Api"
 import { AxiosResponse } from "axios"
 
 export class Collection<T, K> {
-  constructor(public rootUrl: string, public deserialize: (json: K) => T) {}
+  constructor(
+    public rootUrl: string,
+    public deserialize: (json: K) => T,
+  ) {}
 
   models: T[] = []
   events: Eventing = new Eventing()
