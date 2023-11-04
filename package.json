@@ -1,31 +1,46 @@
 {
-  "name": "learn-ts-sort",
+  "name": "typescript-web",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start:parcel": "parcel index.html",
-    "start:db": "json-server -p 3005 --watch ./server/db.js"
-  },
+  "description": "learn typescript - build own web framework",
+  "source": "src/index.html",
+  "author": "Gurov Dmitriy",
   "keywords": [],
-  "author": "",
   "license": "ISC",
+  "private": true,
+  "scripts": {
+    "start": "parcel",
+    "server": "json-server server/db.json -w -m ./node_modules/json-server-auth -r server/routes.json",
+    "build": "parcel build",
+    "prepare": "husky install",
+    "lint": "npm run lint:eslint && npm run lint:stylelint && npm run lint:prettier",
+    "lint:eslint": "eslint --fix --ext \".jsx,.js,.ts,.tsx\" --ignore-path .eslintignore .",
+    "lint:prettier": "prettier --write \"**/*.{jsx,js,ts,tsx,css,less,scss,html,md}\" --ignore-path .prettierignore",
+    "lint:stylelint": "stylelint --fix \"**/*.{css,less,scss}\" --ignore-path .stylelintignore"
+  },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.30.3",
-    "@typescript-eslint/parser": "^5.30.3",
-    "casual": "^1.6.2",
-    "eslint": "^8.19.0",
-    "eslint-config-prettier": "^8.5.0",
-    "json-server": "^0.17.1",
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
+    "@parcel/config-default": "^2.10.2",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
+    "buffer": "^6.0.3",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.3",
+    "json-server": "^0.17.4",
     "json-server-auth": "^2.1.0",
-    "prettier": "^2.7.1",
-    "typescript": "^4.7.4"
+    "lint-staged": "^15.0.2",
+    "parcel": "^2.10.2",
+    "prettier": "3.0.3",
+    "prettier-plugin-organize-imports": "^3.2.3",
+    "stylelint": "^15.11.0",
+    "stylelint-config-html": "^1.1.0",
+    "stylelint-config-rational-order-fix": "^0.1.9",
+    "stylelint-config-standard-scss": "^11.1.0",
+    "stylelint-order": "^6.0.3",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@types/node": "^18.0.3",
-    "api": "^5.0.5",
-    "axios": "^1.2.1",
-    "concurrently": "^7.2.2",
-    "nodemon": "^2.0.18"
+    "axios": "^1.6.0"
   }
 }

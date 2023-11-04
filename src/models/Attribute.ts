@@ -1,21 +1,21 @@
-export interface AttributesI<T> {
+export interface IAttributes<T> {
   set(value: T): void
   get<K extends keyof T>(key: K): T[K]
   getAll(): T
 }
 
-export class Attribute<T> implements AttributesI<T> {
+export class Attribute<T> implements IAttributes<T> {
   constructor(private _data: T) {}
 
-  get = <K extends keyof T>(key: K): T[K] => {
+  get<K extends keyof T>(key: K): T[K] {
     return this._data[key]
   }
 
-  set = (data: T): void => {
+  set(data: T): void {
     this._data = Object.assign({}, this._data, data)
   }
 
-  getAll = (): T => {
+  getAll(): T {
     return this._data
   }
 }

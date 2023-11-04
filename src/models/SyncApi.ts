@@ -3,16 +3,16 @@ import { AxiosPromise } from "axios"
 
 export type IdType = number | string | undefined
 
-export interface HasIdI {
+export interface IHasId {
   id?: IdType
 }
 
-export interface SyncApiI<T extends HasIdI> {
+export interface ISyncApi<T extends IHasId> {
   fetch(id: IdType): AxiosPromise | undefined
   save(data: T): AxiosPromise | undefined
 }
 
-export class SyncApi<T extends HasIdI> implements SyncApiI<T> {
+export class SyncApi<T extends IHasId> implements ISyncApi<T> {
   constructor(public rootUrl: string) {}
 
   fetch(id: number): AxiosPromise | undefined {

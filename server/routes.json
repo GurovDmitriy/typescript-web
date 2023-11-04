@@ -1,4 +1,4 @@
 {
-  "/users*": "/444/users$1",
+  "/users*": "/users$1",
   "/userList*": "/444/userList$1"
 }

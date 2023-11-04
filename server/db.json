@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "32424",
+      "age": 76,
+      "email": "sfs.f@dsfs.com",
+      "password": "$2a$10$kVmczCj6zuwNN5J3Xg5GsucWV6.pRz7mSb703/hBhJOQegSUbMWDK"
+    }
+  ],
+  "userList": []
+}

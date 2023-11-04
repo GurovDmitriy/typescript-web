@@ -1,7 +1,7 @@
 import {Model} from "../models/Model";
-import {HasIdI} from "../models/SyncApi";
+import {IHasId} from "../models/SyncApi";
 
-export abstract class View<T extends Model<K>, K extends HasIdI> {
+export abstract class View<T extends Model<K>, K extends IHasId> {
   constructor(public parent: Element | null, public model: T) {
     this.bindModel()
   }

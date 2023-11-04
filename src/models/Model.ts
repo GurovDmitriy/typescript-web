@@ -1,17 +1,25 @@
-import {EventingI, EventName} from "./Eventing"
-import {HasIdI, SyncApiI} from "./SyncApi";
-import {AttributesI} from "./Attribute";
+import {IEventing, EventName, Callback} from "./Eventing"
+import {IHasId, ISyncApi} from "./SyncApi";
+import {IAttributes} from "./Attribute";
 
-export class Model<T extends HasIdI> {
+export class Model<T extends IHasId> {
   constructor(
-    private attributes: AttributesI<T>,
-    private events: EventingI,
-    private sync: SyncApiI<T>
+    private attributes: IAttributes<T>,
+    private events: IEventing,
+    private sync: ISyncApi<T>
   ) {}
 
-  on = this.events.on
-  trigger = this.events.trigger
-  get = this.attributes.get
+  on(eventName: string, callback: Callback): void {
+    this.events.on(eventName, callback)
+  }
+
+  trigger(eventName: string): void {
+    this.events.trigger(eventName)
+  }
+
+  get<K extends keyof T>(key: K): T[K] {
+    return this.attributes.get(key)
+  }
 
   set(data: T): void {
     this.attributes.set(data)

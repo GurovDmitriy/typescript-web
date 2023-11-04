@@ -10,15 +10,15 @@ export type Events = {
   [key: string]: Callback[]
 }
 
-export interface EventingI {
+export interface IEventing {
   on(eventName: string, callback: Callback): void
   trigger(eventName: string): void
 }
 
-export class Eventing implements EventingI {
+export class Eventing implements IEventing {
   events: Events = {}
 
-  on = (eventName: string, callback: Callback): void => {
+  on(eventName: string, callback: Callback): void {
     const isExistEvent = this.events[eventName]
 
     if (!isExistEvent) {
@@ -28,7 +28,7 @@ export class Eventing implements EventingI {
     this.events[eventName].push(callback)
   }
 
-  trigger = (eventName: string): void => {
+  trigger(eventName: string): void {
     const handlers = this.events[eventName]
     const isExistHandlers =
       handlers && Array.isArray(handlers) && handlers.length

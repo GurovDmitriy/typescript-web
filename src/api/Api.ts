@@ -3,7 +3,7 @@ import axiosLib from "axios"
 class Api {
   private constructor() {
     this.axios = axiosLib.create({
-      baseURL: "http://localhost:3005",
+      baseURL: "http://localhost:3000",
     })
   }
 

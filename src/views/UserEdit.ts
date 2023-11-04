@@ -1,9 +1,9 @@
 import {View} from "./View";
-import {User, UserProps} from "../models/User";
+import {User, IUserProps} from "../models/User";
 import {UserShow} from "./UserShow";
 import {UserForm} from "./UserForm";
 
-export class UserEdit extends View<User, UserProps> {
+export class UserEdit extends View<User, IUserProps> {
   slotsMap(): { [key: string]: string } {
     return {
       userShow: ".user-show",

@@ -1,21 +1,21 @@
 import {View} from "./View";
-import {User, UserProps} from "../models/User";
+import {User, IUserProps} from "../models/User";
 
-export class UserForm extends View<User, UserProps> {
+export class UserForm extends View<User, IUserProps> {
 
   eventsMap(): { [key: string]: () => void } {
     return {
-      "click:.btn-set-age": this.handlerSetAge,
-      "click:.btn-set-name": this.handlerSetName,
-      "click:.btn-save": this.handlerSave,
+      "click:.btn-set-age": () => this.handlerSetAge(),
+      "click:.btn-set-name": () => this.handlerSetName(),
+      "click:.btn-save": () => this.handlerSave(),
     }
   }
 
-  handlerSetAge = (): void => {
+  handlerSetAge(): void {
     this.model.setRandomAge()
   }
 
-  handlerSetName = (): void => {
+  handlerSetName(): void {
     const input = this.parent?.querySelector("input")
 
     if(this.parent && input) {
@@ -24,8 +24,8 @@ export class UserForm extends View<User, UserProps> {
     }
   }
 
-  handlerSave = (): void => {
-    this.model.save()
+  handlerSave(): Promise<void> {
+    return this.model.save()
   }
 
   template(): string {

@@ -4,25 +4,27 @@ import { Eventing } from "./Eventing"
 import { IdType, SyncApi } from "./SyncApi"
 import { Collection } from "./Collection"
 
-export interface UserProps {
+export interface IUserProps {
   id?: IdType
   name?: string
   age?: number
+  email?: string,
+  password?: string,
 }
 
 export const rootUrl = "/users"
 
-export class User extends Model<UserProps> {
-  static buildUser(attributes: UserProps): User {
+export class User extends Model<IUserProps> {
+  static buildUser(attributes: IUserProps): User {
     return new User(
-      new Attribute<UserProps>(attributes),
+      new Attribute<IUserProps>(attributes),
       new Eventing(),
-      new SyncApi<UserProps>(rootUrl)
+      new SyncApi<IUserProps>(rootUrl)
     )
   }
 
-  static buildCollection(): Collection<User, UserProps> {
-    return new Collection<User, UserProps>(rootUrl, (json) =>
+  static buildCollection(): Collection<User, IUserProps> {
+    return new Collection<User, IUserProps>(rootUrl, (json) =>
       User.buildUser(json)
     )
   }
